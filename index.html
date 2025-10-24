@@ -1,1 +1,32 @@
-c-basso
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>c-basso</title>
+</head>
+
+<body>
+    <ul id="apps"></ul>
+    <script>
+        function handleItunes(data) {
+            // data is the parsed JSONP payload
+            const apps = data.results.filter(r => r.wrapperType === 'software' || r.kind === 'software');
+            const ul = document.getElementById('apps');
+            apps.forEach(a => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="${a.trackViewUrl}" target="_blank">${a.trackName}</a> — ${a.primaryGenreName || ''}`;
+                ul.appendChild(li);
+            });
+        }
+
+        // inject JSONP script
+        const artistId = '1239180595';
+        const script = document.createElement('script');
+        script.src = `https://itunes.apple.com/lookup?id=${encodeURIComponent(artistId)}&entity=software&limit=200&country=us&callback=handleItunes`;
+        document.body.appendChild(script);
+    </script>
+</body>
+
+</html>
