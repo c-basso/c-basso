@@ -153,7 +153,45 @@
                 font-size: 1rem;
             }
         }
+
+        .footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            color: #aaaaaa;
+            text-align: center;
+            border-top: 1px solid #333333;
+        }
+
+        .footer .links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .footer a {
+            color: #dddddd;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
     </style>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104881489', 'ym');
+
+        ym(104881489, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/104881489" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 </head>
 
 <body>
@@ -163,6 +201,18 @@
             <div class="loading">Loading apps...</div>
         </div>
     </div>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="links">
+                <a href="terms.html">Terms</a>
+                <span>•</span>
+                <a href="privacy.html">Privacy</a>
+                <span>•</span>
+                <a href="#" class="contact-link" data-u="c-basso" data-d="ya.ru">Contact</a>
+            </div>
+        </div>
+    </footer>
     
     <script>
         function handleItunes(data) {
@@ -225,6 +275,18 @@
         const script = document.createElement('script');
         script.src = `https://itunes.apple.com/lookup?id=${encodeURIComponent(artistId)}&entity=software&limit=200&callback=handleItunes`;
         document.body.appendChild(script);
+    </script>
+    <script>
+        (function () {
+            const el = document.querySelector('.contact-link');
+            if (!el) return;
+            const user = el.getAttribute('data-u') || '';
+            const domain = el.getAttribute('data-d') || '';
+            if (!user || !domain) return;
+            const email = user + '@' + domain;
+            el.setAttribute('href', 'mailto:' + email);
+            el.setAttribute('rel', 'nofollow');
+        })();
     </script>
 </body>
 
