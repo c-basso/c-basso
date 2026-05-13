@@ -1,0 +1,65 @@
+{
+  "title": "Links — Vladimir Ivakhnenko (c-basso)",
+  "description": "Curated links to websites and articles by Vladimir Ivakhnenko (c-basso).",
+  "keywords": "Vladimir Ivakhnenko, c-basso, links, blog, articles, indie developer",
+  "h1": "Links",
+  "lead": "My links.",
+  "items": [
+    {
+      "title": "App Store — Vladimir Ivakhnenko",
+      "url": "https://apps.apple.com/developer/id1239180595"
+    },
+    {
+      "title": "GitHub — c-basso",
+      "url": "https://github.com/c-basso"
+    },
+    {
+      "title": "Medium — @ivakhvu1",
+      "url": "https://medium.com/@ivakhvu1"
+    },
+    {
+      "title": "X — @c__basso",
+      "url": "https://x.com/c__basso"
+    },
+    {
+      "title": "Bluesky — @c-basso.bsky.social",
+      "url": "https://bsky.app/profile/c-basso.bsky.social"
+    },
+    {
+      "title": "Bluetooth Finder — find lost devices instantly",
+      "url": "https://bluetoothfinderapp.com/"
+    },
+    {
+      "title": "Extract Audio from Video⁺ — convert video to MP3 on iPhone",
+      "url": "https://extractaudioapp.com/"
+    },
+    {
+      "title": "Increase Volume – Sound Boost — make any audio or video louder",
+      "url": "https://volumeboosting.com/"
+    },
+    {
+      "title": "Clear Wave – Speaker Fix — eject water and fix iPhone speaker",
+      "url": "https://clearwaveapp.com/"
+    },
+    {
+      "title": "CV Builder — create professional resumes & CVs in minutes",
+      "url": "https://cvbuilderapp.com/"
+    },
+    {
+      "title": "DRMN — white noise & sleep sounds for iPhone",
+      "url": "https://drmn.xyz/"
+    },
+    {
+      "title": "FaceSpinner — Spin The Wheel & Face Roulette",
+      "url": "https://facespinner.com/"
+    },
+    {
+      "title": "Make Blur — blur background & faces on iPhone",
+      "url": "https://makeblur.com/"
+    },
+    {
+      "title": "RingTon101 — free iPhone ringtone maker",
+      "url": "https://rington101.com/"
+    }
+  ]
+}

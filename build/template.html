@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="color-scheme" content="dark">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="Vladimir Ivakhnenko">
+    <meta name="description" content="{{DESCRIPTION}}">
+    <meta name="keywords" content="{{KEYWORDS}}">
+
+    <title>{{TITLE}}</title>
+
+    <link rel="canonical" href="{{CANONICAL}}">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231a1a1a'/%3E%3Ctext x='50' y='72' font-family='-apple-system,Segoe UI,Roboto,sans-serif' font-size='70' font-weight='700' text-anchor='middle' fill='%23ffd700'%3Ec%3C/text%3E%3C/svg%3E">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="c-basso">
+    <meta property="og:title" content="{{OG_TITLE}}">
+    <meta property="og:description" content="{{DESCRIPTION}}">
+    <meta property="og:url" content="{{CANONICAL}}">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{OG_TITLE}}">
+    <meta name="twitter:description" content="{{DESCRIPTION}}">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .lead {
+            text-align: center;
+            color: #cccccc;
+            max-width: 640px;
+            margin: -10px auto 30px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .apps-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .app-card {
+            background: #2d2d2d;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            width: 100%;
+            border: 1px solid #404040;
+        }
+
+        .app-card:hover {
+            transform: translateY(-1px);
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            gap: 15px;
+        }
+
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .app-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .app-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 4px;
+            line-height: 1.2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .app-rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+
+        .stars {
+            font-size: 1rem;
+        }
+
+        .stars .filled {
+            color: #ffd700;
+        }
+
+        .stars .empty {
+            color: #ddd;
+        }
+
+        .links-list {
+            list-style: none;
+            max-width: 640px;
+            margin: 20px auto 0;
+            padding: 0;
+        }
+
+        .link-item {
+            padding: 14px 0;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .link-item:last-child {
+            border-bottom: none;
+        }
+
+        .link-item a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.05rem;
+            line-height: 1.4;
+            display: block;
+            transition: color 0.2s ease;
+        }
+
+        .link-item a:hover,
+        .link-item a:focus {
+            color: #ffd700;
+        }
+
+        .link-host {
+            display: block;
+            color: #888888;
+            font-size: 0.85rem;
+            margin-top: 4px;
+            word-break: break-all;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #cccccc;
+            padding: 40px 20px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+
+            .apps-grid {
+                max-width: 100%;
+                margin: 10px 0;
+            }
+
+            .app-header {
+                padding: 12px;
+                gap: 12px;
+            }
+
+            .app-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .app-name {
+                font-size: 1rem;
+            }
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            color: #aaaaaa;
+            text-align: center;
+            border-top: 1px solid #333333;
+        }
+
+        .footer .links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer a {
+            color: #dddddd;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104881489', 'ym');
+
+        ym(104881489, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/104881489" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script type="application/ld+json">{{JSONLD}}</script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>{{H1}}</h1>
+            {{LEAD}}
+        </header>
+        <main>
+            {{CONTENT}}
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <nav class="links" aria-label="Footer">
+                {{NAV_PRIMARY}}
+                <span aria-hidden="true">•</span>
+                <a href="/terms.html">Terms</a>
+                <span aria-hidden="true">•</span>
+                <a href="/privacy.html">Privacy</a>
+                <span aria-hidden="true">•</span>
+                <a href="#" class="contact-link" data-u="c-basso" data-d="ya.ru">Contact</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const el = document.querySelector('.contact-link');
+            if (!el) return;
+            const user = el.getAttribute('data-u') || '';
+            const domain = el.getAttribute('data-d') || '';
+            if (!user || !domain) return;
+            const email = user + '@' + domain;
+            el.setAttribute('href', 'mailto:' + email);
+            el.setAttribute('rel', 'nofollow');
+        })();
+    </script>
+</body>
+
+</html>

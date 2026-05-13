@@ -1,0 +1,16 @@
+{
+  "name": "c-basso",
+  "private": true,
+  "scripts": {
+    "build:html": "node build/generate-index.js html",
+    "build:seo": "node build/generate-index.js seo",
+    "build": "npm run build:html && npm run build:seo",
+    "start": "npx http-server",
+    "index:now": "node build/indexnow.js",
+    "push": "git add . && git commit -m 'wip' && git push origin main",
+    "deploy": "npm run build && npm run push"
+  },
+  "dependencies": {
+    "jsonld": "^9.0.0"
+  }
+}

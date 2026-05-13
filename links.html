@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="color-scheme" content="dark">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="Vladimir Ivakhnenko">
+    <meta name="description" content="Curated links to websites and articles by Vladimir Ivakhnenko (c-basso).">
+    <meta name="keywords" content="Vladimir Ivakhnenko, c-basso, links, blog, articles, indie developer">
+
+    <title>Links — Vladimir Ivakhnenko (c-basso)</title>
+
+    <link rel="canonical" href="https://c-basso.xyz/links.html">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231a1a1a'/%3E%3Ctext x='50' y='72' font-family='-apple-system,Segoe UI,Roboto,sans-serif' font-size='70' font-weight='700' text-anchor='middle' fill='%23ffd700'%3Ec%3C/text%3E%3C/svg%3E">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="c-basso">
+    <meta property="og:title" content="Links — Vladimir Ivakhnenko (c-basso)">
+    <meta property="og:description" content="Curated links to websites and articles by Vladimir Ivakhnenko (c-basso).">
+    <meta property="og:url" content="https://c-basso.xyz/links.html">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Links — Vladimir Ivakhnenko (c-basso)">
+    <meta name="twitter:description" content="Curated links to websites and articles by Vladimir Ivakhnenko (c-basso).">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .lead {
+            text-align: center;
+            color: #cccccc;
+            max-width: 640px;
+            margin: -10px auto 30px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .apps-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .app-card {
+            background: #2d2d2d;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            width: 100%;
+            border: 1px solid #404040;
+        }
+
+        .app-card:hover {
+            transform: translateY(-1px);
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            gap: 15px;
+        }
+
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .app-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .app-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 4px;
+            line-height: 1.2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .app-rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+
+        .stars {
+            font-size: 1rem;
+        }
+
+        .stars .filled {
+            color: #ffd700;
+        }
+
+        .stars .empty {
+            color: #ddd;
+        }
+
+        .links-list {
+            list-style: none;
+            max-width: 640px;
+            margin: 20px auto 0;
+            padding: 0;
+        }
+
+        .link-item {
+            padding: 14px 0;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .link-item:last-child {
+            border-bottom: none;
+        }
+
+        .link-item a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.05rem;
+            line-height: 1.4;
+            display: block;
+            transition: color 0.2s ease;
+        }
+
+        .link-item a:hover,
+        .link-item a:focus {
+            color: #ffd700;
+        }
+
+        .link-host {
+            display: block;
+            color: #888888;
+            font-size: 0.85rem;
+            margin-top: 4px;
+            word-break: break-all;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #cccccc;
+            padding: 40px 20px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+
+            .apps-grid {
+                max-width: 100%;
+                margin: 10px 0;
+            }
+
+            .app-header {
+                padding: 12px;
+                gap: 12px;
+            }
+
+            .app-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .app-name {
+                font-size: 1rem;
+            }
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            color: #aaaaaa;
+            text-align: center;
+            border-top: 1px solid #333333;
+        }
+
+        .footer .links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer a {
+            color: #dddddd;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104881489', 'ym');
+
+        ym(104881489, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/104881489" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","url":"https://c-basso.xyz/links.html","name":"Links","description":"Curated links to websites and articles by Vladimir Ivakhnenko (c-basso).","inLanguage":"en","isPartOf":{"@id":"https://c-basso.xyz/#website"},"mainEntity":{"@type":"ItemList","numberOfItems":14,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://apps.apple.com/developer/id1239180595","name":"App Store — Vladimir Ivakhnenko"},{"@type":"ListItem","position":2,"url":"https://github.com/c-basso","name":"GitHub — c-basso"},{"@type":"ListItem","position":3,"url":"https://medium.com/@ivakhvu1","name":"Medium — @ivakhvu1"},{"@type":"ListItem","position":4,"url":"https://x.com/c__basso","name":"X — @c__basso"},{"@type":"ListItem","position":5,"url":"https://bsky.app/profile/c-basso.bsky.social","name":"Bluesky — @c-basso.bsky.social"},{"@type":"ListItem","position":6,"url":"https://bluetoothfinderapp.com/","name":"Bluetooth Finder — find lost devices instantly"},{"@type":"ListItem","position":7,"url":"https://extractaudioapp.com/","name":"Extract Audio from Video⁺ — convert video to MP3 on iPhone"},{"@type":"ListItem","position":8,"url":"https://volumeboosting.com/","name":"Increase Volume – Sound Boost — make any audio or video louder"},{"@type":"ListItem","position":9,"url":"https://clearwaveapp.com/","name":"Clear Wave – Speaker Fix — eject water and fix iPhone speaker"},{"@type":"ListItem","position":10,"url":"https://cvbuilderapp.com/","name":"CV Builder — create professional resumes & CVs in minutes"},{"@type":"ListItem","position":11,"url":"https://drmn.xyz/","name":"DRMN — white noise & sleep sounds for iPhone"},{"@type":"ListItem","position":12,"url":"https://facespinner.com/","name":"FaceSpinner — Spin The Wheel & Face Roulette"},{"@type":"ListItem","position":13,"url":"https://makeblur.com/","name":"Make Blur — blur background & faces on iPhone"},{"@type":"ListItem","position":14,"url":"https://rington101.com/","name":"RingTon101 — free iPhone ringtone maker"}]}}</script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Links</h1>
+            <p class="lead">My links.</p>
+        </header>
+        <main>
+            <ul class="links-list" aria-label="Links">
+<li class="link-item">
+                <a href="https://apps.apple.com/developer/id1239180595" target="_blank" rel="noopener noreferrer">
+                    <span>App Store — Vladimir Ivakhnenko</span>
+                    <span class="link-host">apps.apple.com</span>
+                </a>
+            </li>
+<li class="link-item">
+                <a href="https://github.com/c-basso" target="_blank" rel="noopener noreferrer">
+                    <span>GitHub — c-basso</span>
+                    <span class="link-host">github.com</span>
+                </a>
+            </li>
+<li class="link-item">
+                <a href="https://medium.com/@ivakhvu1" target="_blank" rel="noopener noreferrer">
+                    <span>Medium — @ivakhvu1</span>
+                    <span class="link-host">medium.com</span>
+                </a>
+            </li>
+<li class="link-item">
+                <a href="https://x.com/c__basso" target="_blank" rel="noopener noreferrer">
+                    <span>X — @c__basso</span>
+                    <span class="link-host">x.com</span>
+                </a>
+            </li>
+<li class="link-item">
+                <a href="https://bsky.app/profile/c-basso.bsky.social" target="_blank" rel="noopener noreferrer">
+                    <span>Bluesky — @c-basso.bsky.social</span>
+                    <span class="link-host">bsky.app</span>
+                </a>
+            </li>
+<li class="link-item">
+                <a href="https://bluetoothfinderapp.com/" target="_blank" rel="noopener noreferrer">
+                    <span>Bluetooth Finder — find lost devices instantly</span>
+                    <span class="link-host">bluetoothfinderapp.com</span>
+                </a>
+            </li>
+<li class="link-item">
+                <a href="https://extractaudioapp.com/" target="_blank" rel="noopener noreferrer">
+                    <span>Extract Audio from Video⁺ — convert video to MP3 on iPhone</span>
+                    <span class="link-host">extractaudioapp.com</span>
+                </a>
+            </li>
+<li class="link-item">
+                <a href="https://volumeboosting.com/" target="_blank" rel="noopener noreferrer">
+                    <span>Increase Volume – Sound Boost — make any audio or video louder</span>
+                    <span class="link-host">volumeboosting.com</span>
+                </a>
+            </li>
+<li class="link-item">
+                <a href="https://clearwaveapp.com/" target="_blank" rel="noopener noreferrer">
+                    <span>Clear Wave – Speaker Fix — eject water and fix iPhone speaker</span>
+                    <span class="link-host">clearwaveapp.com</span>
+                </a>
+            </li>
+<li class="link-item">
+                <a href="https://cvbuilderapp.com/" target="_blank" rel="noopener noreferrer">
+                    <span>CV Builder — create professional resumes &amp; CVs in minutes</span>
+                    <span class="link-host">cvbuilderapp.com</span>
+                </a>
+            </li>
+<li class="link-item">
+                <a href="https://drmn.xyz/" target="_blank" rel="noopener noreferrer">
+                    <span>DRMN — white noise &amp; sleep sounds for iPhone</span>
+                    <span class="link-host">drmn.xyz</span>
+                </a>
+            </li>
+<li class="link-item">
+                <a href="https://facespinner.com/" target="_blank" rel="noopener noreferrer">
+                    <span>FaceSpinner — Spin The Wheel &amp; Face Roulette</span>
+                    <span class="link-host">facespinner.com</span>
+                </a>
+            </li>
+<li class="link-item">
+                <a href="https://makeblur.com/" target="_blank" rel="noopener noreferrer">
+                    <span>Make Blur — blur background &amp; faces on iPhone</span>
+                    <span class="link-host">makeblur.com</span>
+                </a>
+            </li>
+<li class="link-item">
+                <a href="https://rington101.com/" target="_blank" rel="noopener noreferrer">
+                    <span>RingTon101 — free iPhone ringtone maker</span>
+                    <span class="link-host">rington101.com</span>
+                </a>
+            </li>
+</ul>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <nav class="links" aria-label="Footer">
+                <a href="/">Apps</a>
+                <span aria-hidden="true">•</span>
+                <a href="/terms.html">Terms</a>
+                <span aria-hidden="true">•</span>
+                <a href="/privacy.html">Privacy</a>
+                <span aria-hidden="true">•</span>
+                <a href="#" class="contact-link" data-u="c-basso" data-d="ya.ru">Contact</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const el = document.querySelector('.contact-link');
+            if (!el) return;
+            const user = el.getAttribute('data-u') || '';
+            const domain = el.getAttribute('data-d') || '';
+            if (!user || !domain) return;
+            const email = user + '@' + domain;
+            el.setAttribute('href', 'mailto:' + email);
+            el.setAttribute('rel', 'nofollow');
+        })();
+    </script>
+</body>
+
+</html>
