@@ -9,8 +9,5 @@
     "index:now": "node build/indexnow.js",
     "push": "git add . && git commit -m 'wip' && git push origin main",
     "deploy": "npm run build && npm run push"
-  },
-  "dependencies": {
-    "jsonld": "^9.0.0"
   }
 }
