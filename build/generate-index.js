@@ -15,7 +15,40 @@ const CONFIG = {
     sitemapPath: path.join(__dirname, "..", "sitemap.xml")
 };
 
-const LOOKUP_URL = `https://itunes.apple.com/lookup?id=${encodeURIComponent(CONFIG.artistId)}&entity=software&limit=200`;
+// App Store storefronts (ISO 3166-1 alpha-2). Ratings are per-country in the
+// public iTunes lookup API, so we scan these and aggregate where count > 0.
+const STORE_COUNTRIES = [
+    "ae", "ag", "ai", "al", "am", "ao", "ar", "at", "au", "az",
+    "bb", "be", "bf", "bg", "bh", "bj", "bm", "bn", "bo", "br",
+    "bs", "bt", "bw", "by", "bz", "ca", "cd", "cg", "ch", "ci",
+    "cl", "cm", "cn", "co", "cr", "cv", "cy", "cz", "de", "dk",
+    "dm", "do", "dz", "ec", "ee", "eg", "es", "fi", "fj", "fm",
+    "fr", "ga", "gb", "gd", "ge", "gh", "gm", "gr", "gt", "gw",
+    "gy", "hk", "hn", "hr", "hu", "id", "ie", "il", "in", "iq",
+    "is", "it", "jm", "jo", "jp", "ke", "kg", "kh", "kn", "kr",
+    "kw", "ky", "kz", "la", "lb", "lc", "lk", "lr", "lt", "lu",
+    "lv", "ly", "ma", "md", "me", "mg", "mk", "ml", "mm", "mn",
+    "mo", "mr", "ms", "mt", "mu", "mw", "mx", "my", "mz", "na",
+    "ne", "ng", "ni", "nl", "no", "np", "nz", "om", "pa", "pe",
+    "pg", "ph", "pk", "pl", "pt", "pw", "py", "qa", "ro", "rs",
+    "ru", "rw", "sa", "sb", "sc", "se", "sg", "si", "sk", "sl",
+    "sn", "sr", "st", "sv", "sz", "tc", "td", "th", "tj", "tm",
+    "tn", "to", "tr", "tt", "tw", "tz", "ua", "ug", "us", "uy",
+    "uz", "vc", "ve", "vg", "vn", "vu", "ws", "xk", "ye", "za",
+    "zm", "zw"
+];
+
+const LOOKUP_CONCURRENCY = 12;
+
+function artistLookupUrl(country) {
+    const params = new URLSearchParams({
+        id: CONFIG.artistId,
+        entity: "software",
+        limit: "200",
+        country
+    });
+    return `https://itunes.apple.com/lookup?${params.toString()}`;
+}
 
 function escapeHtml(value) {
     return String(value)
@@ -110,19 +143,120 @@ function renderLinks(items) {
     return `<ul class="links-list" aria-label="Links">\n${rows}\n</ul>`;
 }
 
-async function fetchApps() {
-    const response = await fetch(LOOKUP_URL, {
+function isSoftware(item) {
+    return item.wrapperType === "software" || item.kind === "software";
+}
+
+async function mapPool(items, concurrency, mapper) {
+    const results = new Array(items.length);
+    let nextIndex = 0;
+
+    async function worker() {
+        while (nextIndex < items.length) {
+            const index = nextIndex;
+            nextIndex += 1;
+            results[index] = await mapper(items[index], index);
+        }
+    }
+
+    const workers = Array.from(
+        { length: Math.min(concurrency, items.length) },
+        () => worker()
+    );
+    await Promise.all(workers);
+    return results;
+}
+
+async function fetchAppsForCountry(country) {
+    const response = await fetch(artistLookupUrl(country), {
         headers: { Accept: "application/json" }
     });
 
     if (!response.ok) {
-        throw new Error(`iTunes request failed: ${response.status} ${response.statusText}`);
+        throw new Error(
+            `iTunes request failed for ${country}: ${response.status} ${response.statusText}`
+        );
     }
 
     const payload = await response.json();
-    return (payload.results || [])
-        .filter((item) => item.wrapperType === "software" || item.kind === "software")
+    return (payload.results || []).filter(isSoftware);
+}
+
+function mergeStoreRatings(countryResults) {
+    // trackId -> { app metadata, weightedRatingSum, ratingCount }
+    const byTrackId = new Map();
+
+    for (const { country, apps } of countryResults) {
+        for (const app of apps) {
+            const trackId = app.trackId;
+            if (!trackId) continue;
+
+            let entry = byTrackId.get(trackId);
+            if (!entry) {
+                entry = {
+                    app: { ...app },
+                    preferredCountry: country,
+                    weightedRatingSum: 0,
+                    ratingCount: 0,
+                    storesWithRatings: 0
+                };
+                byTrackId.set(trackId, entry);
+            } else if (country === "us") {
+                // Prefer US metadata (name, artwork, store URL) when available.
+                entry.app = { ...app };
+                entry.preferredCountry = country;
+            }
+
+            const count = Number(app.userRatingCount) || 0;
+            const rating = Number(app.averageUserRating);
+            if (count > 0 && Number.isFinite(rating)) {
+                entry.weightedRatingSum += rating * count;
+                entry.ratingCount += count;
+                entry.storesWithRatings += 1;
+            }
+        }
+    }
+
+    return [...byTrackId.values()].map((entry) => {
+        const averageUserRating = entry.ratingCount > 0
+            ? entry.weightedRatingSum / entry.ratingCount
+            : 0;
+
+        return {
+            ...entry.app,
+            averageUserRating,
+            userRatingCount: entry.ratingCount,
+            _storesWithRatings: entry.storesWithRatings
+        };
+    });
+}
+
+async function fetchApps() {
+    const countryResults = await mapPool(
+        STORE_COUNTRIES,
+        LOOKUP_CONCURRENCY,
+        async (country) => {
+            try {
+                const apps = await fetchAppsForCountry(country);
+                return { country, apps };
+            } catch (error) {
+                process.stderr.write(
+                    `Warning: skipped store ${country}: ${error.message}\n`
+                );
+                return { country, apps: [] };
+            }
+        }
+    );
+
+    const apps = mergeStoreRatings(countryResults)
         .sort((a, b) => (b.averageUserRating || 0) - (a.averageUserRating || 0));
+
+    const storesReached = countryResults.filter((r) => r.apps.length > 0).length;
+    process.stdout.write(
+        `Aggregated ratings from ${storesReached}/${STORE_COUNTRIES.length} storefronts.\n`
+    );
+
+    return apps;
 }
 
 function buildAppsJsonLd(apps, baseUrl) {
